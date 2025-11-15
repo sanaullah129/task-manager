@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
         <Typography variant="h6">Tasks</Typography>
         <Button variant="contained" onClick={() => navigate('/tasks/new')}>Add Task</Button>
       </Box>
-      {tasks && <TaskTable tasks={tasks} refresh={fetchTasks} loading={loading} />}
+      <TaskTable tasks={tasks} refresh={fetchTasks} loading={loading} />
       <PaginationControls page={page} totalPages={totalPages} onChange={setPage} />
     </Paper>
   );

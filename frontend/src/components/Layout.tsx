@@ -1,23 +1,25 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Button, Container, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import ThemeToggle from './ThemeToggle';
 import { useAuthStore } from '../store/authStore';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const user = useAuthStore((s) => s.user);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const signout = useAuthStore((s) => s.signout);
-  console.log('Layout render, user:', user);
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <AppBar position="static" color="primary" enableColorOnDark>
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }} component={RouterLink} to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Toolbar sx={{ flexWrap: 'wrap', rowGap: 1 }}>
+          <Typography variant={isSmall ? 'subtitle1' : 'h6'} sx={{ flexGrow: 1 }} component={RouterLink} to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             Task Manager
           </Typography>
           {user ? (
             <>
-              <Typography variant="body2" sx={{ mr: 2 }}>{user.email} ({user.role})</Typography>
+              {!isSmall && <Typography variant="body2" sx={{ mr: 2 }}>{user.email} ({user.role})</Typography>}
               <ThemeToggle />
               <Button color="inherit" onClick={signout}>Sign Out</Button>
             </>
@@ -30,9 +32,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           )}
         </Toolbar>
       </AppBar>
-      <Box component="main" sx={{ p: 3, flexGrow: 1, width: '100%', maxWidth: 1200, mx: 'auto' }}>
+      <Container component="main" maxWidth="lg" sx={{ py: 3, flexGrow: 1 }}>
         {children}
-      </Box>
+      </Container>
     </Box>
   );
 };

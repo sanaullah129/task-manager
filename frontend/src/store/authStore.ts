@@ -38,12 +38,14 @@ export const useAuthStore = create<AuthStore>()(
       signin: (token, user) => {
         const current = get();
         if (current.token === token && (!user || user === current.user)) return;
+        try { localStorage.setItem('token', token); } catch {}
         set({ token, user: user || buildUserFromToken(token) });
       },
       signout: () => {
         const current = get();
         if (!current.token && !current.user) return;
         set({ token: null, user: null });
+        try { localStorage.removeItem('token'); } catch {}
       },
     }),
     {
