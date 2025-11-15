@@ -13,7 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 import type { Task } from "../types";
 
 interface Props {
@@ -26,7 +26,7 @@ const SKELETON_ROWS = 6;
 
 const TaskTable: React.FC<Props> = ({ tasks, refresh, loading }) => {
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
+  const isAdmin = useAuthStore((s) => s.user?.role === 'admin');
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete task?")) return;

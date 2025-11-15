@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Paper, Alert } from '@mui/material';
 import { signup } from '../services/auth';
-import { useAuth } from '../context/AuthContext';
+import { useAuthStore } from '../store/authStore';
 import { useNavigate, Link } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
@@ -10,7 +10,7 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { signin: storeToken } = useAuth();
+  const storeToken = useAuthStore((s) => s.signin);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -18,8 +18,8 @@ const SignUp: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const { token } = await signup({ name, email, password });
-      storeToken(token);
+      const { token, user } = await signup({ name, email, password });
+      storeToken(token, user);
       navigate('/');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to sign up');

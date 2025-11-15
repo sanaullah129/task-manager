@@ -2,17 +2,17 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { ThemeModeProvider } from './context/ThemeModeContext';
-import { AuthProvider } from './context/AuthContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeModeProvider>
-      <AuthProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ErrorBoundary>
           <App />
-        </BrowserRouter>
-      </AuthProvider>
+        </ErrorBoundary>
+      </BrowserRouter>
     </ThemeModeProvider>
   </StrictMode>
 );

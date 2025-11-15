@@ -1,11 +1,12 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import ThemeToggle from './ThemeToggle';
-import { useAuth } from '../context/AuthContext';
+import { useAuthStore } from '../store/authStore';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, signout } = useAuth();
+  const user = useAuthStore((s) => s.user);
+  const signout = useAuthStore((s) => s.signout);
   console.log('Layout render, user:', user);
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

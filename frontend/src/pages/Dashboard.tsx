@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Box, Button, Paper, Typography, CircularProgress } from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import api from '../services/api';
 import TaskTable from '../components/TaskTable';
 import { PaginationControls } from '../components/PaginationControls';
