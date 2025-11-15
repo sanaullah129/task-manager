@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2022", // Or a later ECMAScript version if preferred for newer features
+    "module": "Node16", // Recommended for Node.js 24 for ESM support
+    "moduleResolution": "Node16",
+    "lib": ["es2022"], // Or a later ECMAScript version
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
